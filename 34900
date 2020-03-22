@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Calculator</title>
+	<style type="text/css">
+	html { 
+	font-size: 62.5%; 
+	box-sizing: border-box;
+	} 
+	
+	*, *::before, *::after { 
+	margin: 0; 
+	padding: 0; 
+	box-sizing: inherit; 
+	} 
+	
+	
+	
+	body {
+	background-image: linear-gradient(236deg, #74ebd5, #acb6e5);
+	padding-top: 30px;
+	padding-bottom: 30px;
+	height: 100vh;
+	}
+	
+	input {
+	
+	   color:black;
+	
+	}
+	
+	.calculator {
+	border: 2px solid #111;
+	border-radius: 12px;
+	top: 50%;
+	left: 50%;
+	box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.15);
+	width: 300px;
+	margin: 0 auto;
+	}
+	
+	.calculator input {
+	background: none;
+	height: 80px;
+	border: none;
+	box-shadow: none;
+	width: 100%;
+	border-bottom: 2px solid #111;
+	padding: 20px;
+	text-align: right;
+	font-size: 40px;
+	}
+	
+	.calc-buttons {
+	padding: 15px;
+	display: grid;
+	grid-template: repeat(5, 1fr)/ repeat(4, 1fr);
+	grid-gap: 20px;
+	}
+	
+	.calc-button {
+	height: 60px;
+	font-size: 22px;
+	background: rgba(0,0,0,0.5);
+	color: #eee;
+	border: 1px solid #111;
+	border-radius: 5px;
+	cursor: pointer;
+	}
+	
+	
+	
+	
+	.is-clear {
+	grid-column: span 1;
+	}
+	
+	.is-zero {
+	grid-column: span 2;
+	}
+	
+	.key--equal {
+	background-image: linear-gradient(to bottom, #fe886a, #ff7033);
+	grid-column: -2;
+	grid-row: 3 / span 3;
+	}
+	h3 {
+	font-size:30px;
+	}
+	p > a {
+	/*text-decoration:none;*/
+	color:blue;
+	}
+	</style>
+</head>
+<body>
+  
+   <h3 align="center">Calculator</h3>
+   <br>
+       <div class="calculator">
+          <input id="viewer" value="0" disabled="disabled" >
+          
+          <div class="calc-buttons">
+              <button type="button" id="clear" class="calc-button is-clear all-clear" >AC</button>
+                <button type="button" id="divide" data-ops="/" class="calc-button key--operator ops">&divide;</button>
+                 <button type="button" id="multiply" data-ops="*" class="calc-button key--operator ops">&times;</button>
+                 <button type="button" id="plus" data-ops="+" class=" calc-button key--operator ops">
+                &plus;
+               </button>
+               
+             
+           
+                <button type="button"id="seven" data-num="7"  class=" calc-button nums"  value="7">7</button>
+                <button type="button" id="eight" data-num="8" class="calc-button nums"  value="8">8</button>
+                <button type="button" id="nine" data-num="9" class=" calc-button nums"  value="9">9</button>
+                
+                  <button type="button" id="minus" data-ops="-" class=" calc-button key--operator ops">&minus;</button>
+                  
+                 <button type="button"  id="four" data-num="4" class=" calc-button nums" value="4">4</button>
+                 <button type="button" id="five" data-num="5" class=" calc-button nums"  value="5">5</button>
+                 <button type="button"  id="six" data-num="6" class=" calc-button nums" value="6">6</button>
+                 
+                 
+             
+                  <button type="button"  id="one" data-num="1" class="calc-button nums"  value="1">1</button>
+                   <button type="button" id="two" data-num="2" class=" calc-button nums"  value="2">2</button>
+                    <button type="button" id="three" data-num="3" class=" calc-button nums"  value="3">3</button>
+                    
+           
+                 <button type="button"  id="zero" data-num="0" class=" calc-button is-zero nums" value="0">0</button>
+                  <button type="button"  id="decimal" data-num="." class=" calc-button nums" value="&middot;">&middot;</button>
+                  <button id="equals" data-result="" class=" calc-button key--equal">&equals;</button>
+                
+          </div>    
+ </div><br>
+  <footer align="center"> 
+    <p>Develope By : <a href="http://m7md1a.tk" >Mohamed Abdelrahman</a></p> 
+  </footer>
+     
+   	<script type="text/javascript">
+	
+	window.onload = function() {
+	
+	let nums = ids(".nums"),
+	operators = ids(".ops"),
+	viewer = ids("#viewer"),
+	decimal = ids("#decimal"),
+	equals = ids("#equals"),
+	clearNum = ids("#clear"),
+	firstNum = "",
+	secondNum = "",
+	results;
+	
+	
+	function ids (element) {
+	if(element.charAt(0) === "#"){
+	return document.querySelector(element);
+	}
+	
+	return document.querySelectorAll(element);
+	};
+	
+	
+	function setNum() {
+	if(results) {
+	secondNum = this.getAttribute("data-num");
+	results = "";
+	} else{
+	secondNum += this.getAttribute("data-num");
+	}
+	
+	viewer.value = secondNum;
+	};
+	
+	function clean(elem) {
+	elem.value = "";
+	}
+	
+	let moveNum = function() {
+	firstNum = secondNum;
+	secondNum = "";
+	operators = this.getAttribute("data-ops");
+	viewer.value = operators;
+	equals.setAttribute("data-result", "");
+	};
+	
+	
+	let clearAll = function () {
+	firstNum = "";
+	secondNum = "";
+	viewer.value = "0";
+	equals.setAttribute("data-result", results);
+	};
+	
+	for(var i = 0, l = nums.length; i < l; i++){
+	nums[i].onclick = setNum;
+	}
+	
+	for(var i = 0, l = operators.length; i < l; i++) {
+	operators[i].onclick = moveNum;
+	
+	};
+	
+	
+	function displayNum() {
+	firstNum = parseFloat(firstNum);
+	secondNum = parseFloat(secondNum);
+	
+	switch(operators) {
+	case "+":
+	results = firstNum + secondNum;
+	break;
+	case "-":
+	results = firstNum - secondNum;
+	break;
+	case "*":
+	results = firstNum * secondNum;
+	break;
+	case "/":
+	results = (firstNum / secondNum ).toFixed(2);
+	break;
+	default:
+	results = secondNum;
+	}
+	
+	if(!isFinite(results)) {
+	if(isNaN(results)){
+	results = "You've broken it!";
+	} else {
+	results = "Don't divide by zero";
+	}
+	}
+	
+	viewer.value = results;
+	equals.setAttribute("data-result", results);
+	
+	firstNum = 0;
+	secondNum = results;
+	};
+	
+	
+	equals.onclick = displayNum;
+	clearNum.onclick = clearAll;
+	
+	};
+	
+	/*
+		develope By : Mohamed Abdelrahamn
+		Web site Cv : http://m7md1a.tk
+		WhatsApp : 01156552951 
+		Facebook : https://www.facebook.com/m7md1a
+	*/
+	</script>
+</body>
+</html>
