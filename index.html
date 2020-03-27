@@ -152,7 +152,8 @@
     </ul>
   </header>
   <main>
-    <div id="app" class="container white app z-depth-1">
+    <div id="app">
+      <div class="container white app z-depth-1">
       <div class="row white">
         <input class="col s10" placeholder="  Search , Name Country" v-model="inputSearch">
         <a href="#!" class="btn col s2 mar-5"><i class="material-icons">search</i></a>
@@ -171,6 +172,7 @@
         <li class="collection-item">وفيات لكل مليون<span class="badge left">{{ll.deathsPerOneMillion}}</span></li>
         <div class="divider"></div>
       </ul>
+     </div>
     </div>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
